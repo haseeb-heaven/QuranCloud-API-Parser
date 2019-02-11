@@ -1,6 +1,6 @@
 ![cover_logo](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/quran_cloud.jpg?raw=true "")
 
-**_QC_**_Parser_ is **[QuranCloud](https://alquran.cloud/) API Parser for _Quran Cloud service in c/c++_**
+**_QC_**_Parser_ is API Parser for **[QuranCloud](https://alquran.cloud/) service**
 It is specifically made for parsing _JSON_ data of Quran cloud format and provides efficient methods to
 parse data easily and it works with data of all API(s) like **_Quran-API,Edition-API,Juz-API,Surah-API,Ayah-API,Search-API_** and more.
 
@@ -57,68 +57,79 @@ Using **QC_ReadJSON()** method.
 
 ## Get Ayah Text and Number : 
 
-Using **QC_API_GetAyahText()** method.</br></br>
+Using **QC_API_GetAyahText()** method.</br>
+
 ![ayah_text](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/ayah_text.jpg?raw=true "")
 
 Using **QC_API_GetAyahNumber()** method.</br>
+
 ![ayah_number](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/ayah_number.jpg?raw=true "")
 
 ## Get Surah Name and Number : 
 
 Using **QC_API_GetSurahName()** method for arabic/english names.</br>
 
-Surah name in *ARABIC**.</br>
+Surah name in **ARABIC**.</br>
+
 ![surah_name_arabic](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/surah_name_arabic.jpg?raw=true "")
 
-Surah name in *ENNGLISH**.</br>
+Surah name in **ENGLISH**.</br>
+
 ![surah_name_english](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/surah_name_english.jpg?raw=true "")
 
-Surah name in *ENNGLISH-ARABIC**.</br>
+Surah name in **ENGLISH-ARABIC**.</br>
+
 ![surah_name_eng_arabic](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/surah_name_eng_arabic.jpg?raw=true "")
 
 Using **QC_API_GetSurahNumber()** method.</br>
+
 ![surah_number](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/surah_number.jpg?raw=true "")
 
 ## Get Ruku/Juz/Manzil/Hizb/Sajda : 
 
 Using **QC_API_GetRuku()** method for Ruku number.</br>
+
 ![ruku_number](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/ruku_number.jpg?raw=true "")
 
 Using **QC_API_GetJuz()** method for Juz number.</br>
+
 ![juz_number](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/juz_number.jpg?raw=true "")
 
 Using **QC_API_GetManzil()** method for Manzil number.</br>
+
 ![manzil_number](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/manzil_number.jpg?raw=true "")
 
 Using **QC_API_GetHizb()** method for Hizb number.</br>
+
 ![hizb_number](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/hizb_number.jpg?raw=true "")
 
 Using **QC_API_GetSajda()** method for sajda.</br>
+
 ![sajda](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/sajda.jpg?raw=true "")
 
 ## Get Revelation type : 
 Using **QC_API_GetRevelationType()** method.</br>
+
 ![revelation_type](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/revelation_type.jpg?raw=true "")
 
 
 ## Get Page Number And Language: 
 
 Using **QC_API_GetPageNumber()** method.</br>
+
 ![page_number](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/page_number.jpg?raw=true "")
 
 Using **QC_API_GetLanguage()** method.</br>
+
 ![language](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/language.jpg?raw=true "")
 
 
 # QC-API Error handling :
 
-Automatically detects all errors from JSON and API side, and shows with relevant error messages.</br>
+Automatically detects all **ERRORS** from **_JSON and API side_**, and shows with relevant **error messages**.</br>
 
 **Empty JSON string** .</br>
 ![empty_error](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/empty_error.jpg?raw=true "")
-
-**Invalid API status code** .</br>
-![status_code_error](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/status_code_error.jpg?raw=true "")
 
 **Invalid API status code** .</br>
 ![status_code_error](https://github.com/haseeb-heaven/QC-API-Parser/blob/master/resources/status_code_error.jpg?raw=true "")

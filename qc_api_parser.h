@@ -59,8 +59,10 @@ Written by Abdul HaseeB Mir (haseebmir.hm@gmail.com)
 */
 
 /*Defining NULL constants.*/
-#define NIL 0x0
 #define NUL '\0'
+#ifndef NIL
+#define NIL 0
+#endif // NIL
 
 /*JSON Parser and API Errors.*/
 enum ERROR_ENUMS {QC_SUCCESS,QC_INVALID_OBJECT,QC_INVALID_JSON,QC_INVALID_KEY,QC_INVALID_VALUE,QC_EMPTY_STRING,QC_HTTP_ERROR,QC_STATUS_ERROR};
@@ -71,12 +73,12 @@ enum TOK_ENUM {ALL_TOKENS = 1,ALL_KEYS = 2,ALL_VALUES = 3};
 enum SURAH_TYPE {SURAH_ARABIC,SURAH_ENG_ARABIC,SURAH_ENGLISH};
 
 /*API TOKENS*/
-enum API_ENUM {QC_TEXT,QC_SURAH_AR_NAME,QC_SURAH_AR_ENG_NAME,QC_SURAH_ENG_NAME,QC_REV_TYPE,
+enum API_ENUM_PARSER {QC_TEXT,QC_SURAH_AR_NAME,QC_SURAH_AR_ENG_NAME,QC_SURAH_ENG_NAME,QC_REV_TYPE,
                QC_SURAH_NUM,QC_AYAH_NUM,QC_PAGE_NUM,QC_RUKU,QC_JUZ,QC_MANZIL,
                QC_SAJDA,QC_HIZB,QC_LANG
               };
 
-static const char *api_tokens[] =
+static const char *api_parser_tokens[] =
 {
     "text","name","englishName","englishNameTranslation",
     "revelationType","numberInSurah","numberOfAyahs","page",

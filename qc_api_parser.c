@@ -92,7 +92,7 @@ char* QC_ReadJSON(const char *filename)
 
 int QC_API_GetAyahText(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_TEXT]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_TEXT]);
 }
 
 /**
@@ -105,7 +105,7 @@ int QC_API_GetAyahText(const char *json_str)
 int QC_API_GetSurahName(const char *json_str,int surah_type)
 {
     int qc_surah = (surah_type == SURAH_ARABIC) ? QC_SURAH_AR_NAME : (surah_type == SURAH_ENG_ARABIC) ? QC_SURAH_AR_ENG_NAME : QC_SURAH_ENG_NAME;
-    return QC_SearchToken(json_str,api_tokens[qc_surah]);
+    return QC_SearchToken(json_str,api_parser_tokens[qc_surah]);
 }
 
 /**
@@ -116,7 +116,7 @@ int QC_API_GetSurahName(const char *json_str,int surah_type)
 
 int QC_API_GetSurahNumber(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_SURAH_NUM]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_SURAH_NUM]);
 }
 
 /**
@@ -127,7 +127,7 @@ int QC_API_GetSurahNumber(const char *json_str)
 
 int QC_API_GetAyahNumber(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_AYAH_NUM]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_AYAH_NUM]);
 }
 
 /**
@@ -138,7 +138,7 @@ int QC_API_GetAyahNumber(const char *json_str)
 
 int QC_API_GetPageNumber(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_PAGE_NUM]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_PAGE_NUM]);
 }
 
 /**
@@ -149,7 +149,7 @@ int QC_API_GetPageNumber(const char *json_str)
 
 int QC_API_GetRevelationType(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_REV_TYPE]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_REV_TYPE]);
 }
 
 /**
@@ -160,7 +160,7 @@ int QC_API_GetRevelationType(const char *json_str)
 
 int QC_API_GetRuku(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_RUKU]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_RUKU]);
 }
 
 /**
@@ -171,7 +171,7 @@ int QC_API_GetRuku(const char *json_str)
 
 int QC_API_GetJuz(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_JUZ]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_JUZ]);
 }
 
 /**
@@ -182,7 +182,7 @@ int QC_API_GetJuz(const char *json_str)
 
 int QC_API_GetManzil(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_MANZIL]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_MANZIL]);
 }
 
 /**
@@ -193,7 +193,7 @@ int QC_API_GetManzil(const char *json_str)
 
 int QC_API_GetSajda(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_SAJDA]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_SAJDA]);
 }
 
 /**
@@ -204,7 +204,7 @@ int QC_API_GetSajda(const char *json_str)
 
 int QC_API_GetHizb(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_HIZB]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_HIZB]);
 }
 
 /**
@@ -215,7 +215,7 @@ int QC_API_GetHizb(const char *json_str)
 
 int QC_API_GetLanguage(const char *json_str)
 {
-    return QC_SearchToken(json_str,api_tokens[QC_LANG]);
+    return QC_SearchToken(json_str,api_parser_tokens[QC_LANG]);
 }
 
 /****************************************************************************/
@@ -318,6 +318,11 @@ int JSON_Validator(const char *json_str)
         valid_status = QC_EMPTY_STRING;
     }
 
+    else if(json_str[0] != '{' ||  json_str[json_len-1] != '}'){
+        printf("INVALID ENCLOSING BRACES.\n");
+        valid_status = QC_INVALID_JSON;
+    }
+
     else if((ptr = strstr(json_str,"code")) != NULL)
     {
         while(!isdigit(*ptr))
@@ -351,8 +356,6 @@ int JSON_Validator(const char *json_str)
             else  if(strstr(json_str,"endpoint") != NULL) /*If invalid endpoint found*/
                 valid_status = QC_INVALID_OBJECT;
 
-            else  if(strstr(json_str,"[") == NULL || strstr(json_str,"]") == NULL) /*If json array not found*/
-                valid_status = QC_INVALID_VALUE;
         }
         else
         {
@@ -364,23 +367,6 @@ int JSON_Validator(const char *json_str)
     else
     {
         printf("STATUS CODE NOT FOUND\n");
-        valid_status = QC_INVALID_JSON;
-    }
-
-    /*Check for missing braces,brackets and parenthesis.*/
-    size_t open_brace = 0,close_brace = 0,open_bracket = 0,close_bracket = 0,open_paren = 0,close_paren = 0;
-    for(int i = 0; i < json_len; ++i)
-    {
-        if(json_str[i] == '{') open_brace++;
-        else if(json_str[i] == '}') close_brace++;
-        else if(json_str[i] == '[') open_bracket++;
-        else if(json_str[i] == ']') close_bracket++;
-        else if(json_str[i] == '(') open_paren++;
-        else if(json_str[i] == ')')close_paren++;
-    }
-
-    if(open_brace != close_brace || open_bracket != close_bracket || open_paren != close_paren)
-    {
         valid_status = QC_INVALID_JSON;
     }
 

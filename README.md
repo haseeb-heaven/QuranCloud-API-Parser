@@ -141,5 +141,3 @@ Automatically detects all **ERRORS** from **_JSON and API side_**, and shows wit
 **DOCUMENTATION INFO :**
 All Public and Semi-Private methods are well documented.
 but private methods are not documented as it was not necessary to do so.
-
-Written and maintained by Abdul HaseeB Mir (haseebmir.hm@gmail.com)
